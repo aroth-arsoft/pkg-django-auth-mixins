@@ -1,0 +1,9 @@
+/LICENSE
+/MANIFEST.in
+/PKG-INFO
+/README.md
+/setup.cfg
+/setup.py
+/.pybuild/
+/auth_mixins/
+/django_auth_mixins.egg-info/

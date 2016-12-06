@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 buildvers := $(shell pyversions -sv)
-#build3vers := $(shell py3versions -sv)
+build3vers := $(shell py3versions -sv)
 
 export PYBUILD_NAME=django-auth-mixins
 export PYBUILD_DISABLE=test
@@ -14,3 +14,10 @@ SUBSTVARS=
 
 %:
 	dh $@ --with python2,python3 --buildsystem=pybuild
+
+override_dh_auto_install:
+	dh_auto_install --buildsystem=pybuild
+	install -d -m 0755 $(CURDIR)/debian/python-django-auth-mixins/usr/lib/python$(buildvers)/dist-packages/django/contrib/auth
+	ln -s ../../../auth_mixins/__init__.py $(CURDIR)/debian/python-django-auth-mixins/usr/lib/python$(buildvers)/dist-packages/django/contrib/auth/mixins.py
+	install -d -m 0755 $(CURDIR)/debian/python3-django-auth-mixins/usr/lib/python$(build3vers)/dist-packages/django/contrib/auth
+	ln -s ../../../auth_mixins/__init__.py $(CURDIR)/debian/python3-django-auth-mixins/usr/lib/python$(build3vers)/dist-packages/django/contrib/auth/mixins.py
